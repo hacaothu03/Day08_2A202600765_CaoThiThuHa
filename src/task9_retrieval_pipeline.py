@@ -12,10 +12,16 @@ Logic:
     5. Return top_k results
 """
 
-from .task5_semantic_search import semantic_search
-from .task6_lexical_search import lexical_search
-from .task7_reranking import rerank, rerank_rrf
-from .task8_pageindex_vectorless import pageindex_search
+try:
+    from .task5_semantic_search import semantic_search
+    from .task6_lexical_search import lexical_search
+    from .task7_reranking import rerank, rerank_rrf
+    from .task8_pageindex_vectorless import pageindex_search
+except ImportError:
+    from task5_semantic_search import semantic_search
+    from task6_lexical_search import lexical_search
+    from task7_reranking import rerank, rerank_rrf
+    from task8_pageindex_vectorless import pageindex_search
 
 
 # =============================================================================
@@ -32,6 +38,7 @@ def retrieve(
     top_k: int = DEFAULT_TOP_K,
     score_threshold: float = SCORE_THRESHOLD,
     use_reranking: bool = True,
+    search_query: str = None,
 ) -> list[dict]:
     """
     Retrieval pipeline hoàn chỉnh với fallback logic.
@@ -48,10 +55,11 @@ def retrieve(
                 └→ PageIndex Vectorless → fallback_results
 
     Args:
-        query: Câu truy vấn
+        query: Câu truy vấn ban đầu (dùng cho rerank)
         top_k: Số lượng kết quả cuối cùng
         score_threshold: Ngưỡng điểm tối thiểu cho hybrid results
         use_reranking: Có áp dụng reranking hay không
+        search_query: Câu truy vấn để search db (có thể là HyDE document)
 
     Returns:
         List of {
@@ -61,32 +69,35 @@ def retrieve(
             'source': str  # 'hybrid' hoặc 'pageindex'
         }
     """
-    # TODO: Implement full retrieval pipeline
-    #
-    # Step 1: Song song chạy semantic + lexical
-    # dense_results = semantic_search(query, top_k=top_k * 2)
-    # sparse_results = lexical_search(query, top_k=top_k * 2)
-    #
+    # Step 1: Song song chạy semantic + lexical bằng search_query (HyDE) nếu có
+    actual_search_query = search_query if search_query else query
+    dense_results = semantic_search(actual_search_query, top_k=top_k * 2)
+    sparse_results = lexical_search(actual_search_query, top_k=top_k * 2)
+
     # Step 2: Merge bằng RRF
-    # merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
-    # for item in merged:
-    #     item["source"] = "hybrid"
-    #
-    # Step 3: Rerank
-    # if use_reranking and merged:
-    #     final_results = rerank(query, merged, top_k=top_k, method=RERANK_METHOD)
-    # else:
-    #     final_results = merged[:top_k]
-    #
+    merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
+    for item in merged:
+        item["source"] = "hybrid"
+
+    # Step 3: Rerank với câu query gốc để cross-encoder chấm điểm đúng
+    if use_reranking and merged:
+        final_results = rerank(query, merged, top_k=top_k, method=RERANK_METHOD)
+    else:
+        final_results = merged[:top_k]
+
     # Step 4: Check threshold → fallback
-    # if not final_results or final_results[0]["score"] < score_threshold:
-    #     print(f"  ⚠ Hybrid score ({final_results[0]['score']:.3f} if final_results else 0}) "
-    #           f"< threshold ({score_threshold}). Fallback → PageIndex")
-    #     fallback = pageindex_search(query, top_k=top_k)
-    #     return fallback
-    #
-    # return final_results[:top_k]
-    raise NotImplementedError("Implement retrieve")
+    # Do RRF score cực nhỏ (max ~0.033), nếu kết quả trả về có score < 0.1 thì điều chỉnh threshold
+    actual_threshold = score_threshold
+    if final_results and final_results[0]["score"] < 0.1:
+        actual_threshold = 0.01
+
+    if not final_results or final_results[0]["score"] < actual_threshold:
+        score_val = final_results[0]['score'] if final_results else 0.0
+        print(f"  ⚠ Hybrid score ({score_val:.3f}) < threshold ({actual_threshold}). Fallback → PageIndex")
+        fallback = pageindex_search(actual_search_query, top_k=top_k)
+        return fallback
+
+    return final_results[:top_k]
 
 
 if __name__ == "__main__":

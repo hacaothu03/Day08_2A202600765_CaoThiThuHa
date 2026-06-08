@@ -6,42 +6,27 @@ Weaviate BM25 built-in), hãy giải thích cơ chế trong buổi demo → +5 b
 
 Cài đặt:
     pip install rank-bm25
-
-BM25 hoạt động thế nào:
-    - Term Frequency (TF): từ xuất hiện nhiều trong document → điểm cao
-    - Inverse Document Frequency (IDF): từ hiếm → quan trọng hơn
-    - Document length normalization: document dài không bị ưu tiên quá mức
-    - Formula: score(q,d) = Σ IDF(qi) * (tf(qi,d) * (k1+1)) / (tf(qi,d) + k1*(1-b+b*|d|/avgdl))
-    - k1=1.5 (term saturation), b=0.75 (length normalization)
 """
 
-from pathlib import Path
+import weaviate
+from weaviate.classes.query import MetadataQuery
 
-# TODO: Load corpus từ data/standardized/ hoặc từ vector store
-CORPUS: list[dict] = []  # List of {'content': str, 'metadata': dict}
+# Dummy CORPUS to match template requirements if needed
+CORPUS: list[dict] = []
 
 
 def build_bm25_index(corpus: list[dict]):
     """
     Xây dựng BM25 index từ corpus.
-
-    Args:
-        corpus: List of {'content': str, 'metadata': dict}
+    Lưu ý: Vì sử dụng Weaviate BM25 built-in, cơ chế index đã được thực hiện
+    tự động khi nạp dữ liệu ở Task 4. Hàm này được giữ lại để tương thích cấu trúc.
     """
-    # TODO: Implement BM25 index
-    #
-    # from rank_bm25 import BM25Okapi
-    #
-    # # Tokenize - cho tiếng Việt nên dùng underthesea hoặc đơn giản split()
-    # tokenized_corpus = [doc["content"].lower().split() for doc in corpus]
-    # bm25 = BM25Okapi(tokenized_corpus)
-    # return bm25
-    raise NotImplementedError("Implement build_bm25_index")
+    pass
 
 
 def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     """
-    Tìm kiếm từ khóa sử dụng BM25.
+    Tìm kiếm từ khóa sử dụng Weaviate BM25 built-in search.
 
     Args:
         query: Câu truy vấn
@@ -50,34 +35,45 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     Returns:
         List of {
             'content': str,
-            'score': float,      # BM25 score
+            'score': float,      # BM25 score từ Weaviate
             'metadata': dict
         }
         Sorted by score descending.
     """
-    # TODO: Implement lexical search
-    #
-    # tokenized_query = query.lower().split()
-    # scores = bm25.get_scores(tokenized_query)
-    #
-    # # Get top_k indices
-    # import numpy as np
-    # top_indices = np.argsort(scores)[::-1][:top_k]
-    #
-    # results = []
-    # for idx in top_indices:
-    #     if scores[idx] > 0:
-    #         results.append({
-    #             "content": CORPUS[idx]["content"],
-    #             "score": float(scores[idx]),
-    #             "metadata": CORPUS[idx]["metadata"]
-    #         })
-    # return results
-    raise NotImplementedError("Implement lexical_search")
+    from weaviate.classes.init import AdditionalConfig, Timeout
+
+    # Kết nối tới local Weaviate và thực hiện BM25 search với timeout cấu hình tăng cường
+    with weaviate.connect_to_local(
+        additional_config=AdditionalConfig(timeout=Timeout(init=10, query=30, insert=30))
+    ) as client:
+        collection = client.collections.get("DrugLawDocs")
+        
+        results = collection.query.bm25(
+            query=query,
+            limit=top_k,
+            return_metadata=MetadataQuery(score=True)
+        )
+        
+        formatted_results = []
+        for obj in results.objects:
+            score = obj.metadata.score if obj.metadata.score is not None else 0.0
+            formatted_results.append({
+                "content": obj.properties.get("content", ""),
+                "score": float(score),
+                "metadata": {
+                    "source": obj.properties.get("source", ""),
+                    "doc_type": obj.properties.get("doc_type", ""),
+                    "chunk_index": obj.properties.get("chunk_index", 0)
+                }
+            })
+            
+    # Sắp xếp kết quả giảm dần theo điểm số score
+    formatted_results.sort(key=lambda x: x["score"], reverse=True)
+    return formatted_results[:top_k]
 
 
 if __name__ == "__main__":
-    # Test
+    # Test thử nghiệm tìm kiếm từ khóa
     results = lexical_search("Điều 248 tàng trữ trái phép chất ma tuý", top_k=5)
     for r in results:
         print(f"[{r['score']:.3f}] {r['content'][:100]}...")

@@ -1,17 +1,62 @@
 [
-  {
-    "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo Điều 249 Bộ luật Hình sự?",
-    "expected_answer": "Phạt tù từ 1 đến 5 năm đối với trường hợp tàng trữ từ 1g đến dưới 5g heroin hoặc cocaine, hoặc chất ma tuý khác với khối lượng tương đương.",
-    "expected_context": "Bộ luật Hình sự 2015, Điều 249"
-  },
-  {
-    "question": "Luật Phòng chống ma tuý 2021 quy định những hình thức cai nghiện nào?",
-    "expected_answer": "Cai nghiện tự nguyện tại gia đình, cai nghiện tự nguyện tại cộng đồng, cai nghiện tự nguyện tại cơ sở cai nghiện, và cai nghiện bắt buộc tại cơ sở cai nghiện.",
-    "expected_context": "Luật Phòng chống ma tuý 2021, Chương V"
-  },
-  {
-    "question": "Danh mục các chất ma tuý thuộc nhóm I theo quy định pháp luật Việt Nam gồm những chất nào?",
-    "expected_answer": "Nhóm I gồm các chất ma tuý tuyệt đối cấm sử dụng trong y học và đời sống, bao gồm heroin, cocaine, methamphetamine, MDMA (ecstasy), cannabis (cần sa), và các chất tương tự.",
-    "expected_context": "Nghị định 57/2022/NĐ-CP, Phụ lục I"
-  }
+    {
+        "input": "Người nghiện ma túy được định nghĩa thế nào theo Luật Phòng chống ma tuý 2021?",
+        "expected_output": "Người nghiện ma túy là người sử dụng chất ma túy, thuốc gây nghiện, thuốc hướng thần và bị lệ thuộc vào các chất này."
+    },
+    {
+        "input": "Việc trồng cây có chứa chất ma túy có bị cấm theo Luật PCMT 2021 không?",
+        "expected_output": "Có. Việc trồng cây có chứa chất ma túy là một trong những hành vi bị pháp luật nghiêm cấm."
+    },
+    {
+        "input": "Cơ quan nào có thẩm quyền quyết định đưa người từ đủ 12 đến dưới 18 tuổi vào cơ sở cai nghiện bắt buộc?",
+        "expected_output": "Tòa án nhân dân cấp huyện có thẩm quyền quyết định."
+    },
+    {
+        "input": "\"Xét nghiệm chất ma túy trong cơ thể\" là gì?",
+        "expected_output": "Là việc thực hiện các kỹ thuật chuyên môn nhằm xác định chất ma túy trong cơ thể thông qua mẫu nước tiểu, máu hoặc các mẫu vật khác."
+    },
+    {
+        "input": "Luật sửa đổi, bổ sung một số điều của Luật phòng, chống ma túy số 16/2008/QH12 có hiệu lực từ ngày nào?",
+        "expected_output": "Luật này có hiệu lực thi hành từ ngày 01 tháng 01 năm 2009."
+    },
+    {
+        "input": "Theo Luật sửa đổi PCMT 2008 (Luật số 16/2008), Bộ Quốc phòng có trách nhiệm gì?",
+        "expected_output": "Xây dựng, tổ chức thực hiện kế hoạch phòng chống ma túy ở biên giới trên đất liền, trên biển; tổ chức đào tạo chuyên trách và phối hợp ngăn chặn tội phạm xuyên biên giới."
+    },
+    {
+        "input": "Theo Luật sửa đổi 2008, thời hạn cai nghiện ma túy tại gia đình và cộng đồng là bao lâu?",
+        "expected_output": "Thời hạn cai nghiện ma túy tại gia đình, cai nghiện ma túy tại cộng đồng là từ sáu tháng đến mười hai tháng."
+    },
+    {
+        "input": "Cơ sở cai nghiện ma túy công lập phải bảo đảm các điều kiện gì?",
+        "expected_output": "Phải đáp ứng các điều kiện về cơ sở vật chất, trang thiết bị và nhân sự theo quy định của Chính phủ."
+    },
+    {
+        "input": "Ai có trách nhiệm lập hồ sơ đề nghị đưa người nghiện trên 18 tuổi đi cai nghiện bắt buộc?",
+        "expected_output": "Chủ tịch Ủy ban nhân dân cấp xã nơi người nghiện ma túy cư trú hoặc nơi phát hiện người nghiện có trách nhiệm lập hồ sơ."
+    },
+    {
+        "input": "Thẩm quyền lập biên bản vi phạm pháp luật về ma túy thuộc về những cơ quan nào?",
+        "expected_output": "Cơ quan Công an, Bộ đội Biên phòng, Cảnh sát biển và Hải quan trong phạm vi nhiệm vụ, quyền hạn của mình."
+    },
+    {
+        "input": "Chuyên án VN10 là chuyên án về vấn đề gì?",
+        "expected_output": "Là chuyên án mở rộng điều tra vụ án vận chuyển ma túy từ Pháp về Việt Nam, qua đó công an đã khởi tố hàng trăm bị can trong đó có An Tây, Trúc Phương."
+    },
+    {
+        "input": "Ca sĩ Chi Dân (Nguyễn Trung Hiếu) đã bị khởi tố về hành vi gì?",
+        "expected_output": "Ca sĩ Chi Dân bị Công an khởi tố, bắt tạm giam để điều tra về hành vi tổ chức sử dụng trái phép chất ma túy."
+    },
+    {
+        "input": "Lê Ánh Nhật (ca sĩ Miu Lê) bị cơ quan Công an TPHCM khởi tố về hành vi gì?",
+        "expected_output": "Ca sĩ Miu Lê bị khởi tố, bắt tạm giam để điều tra về hành vi tổ chức sử dụng trái phép chất ma túy."
+    },
+    {
+        "input": "Ca sĩ Châu Việt Cường từng gây ra án mạng gì do ảo giác ma tuý?",
+        "expected_output": "Châu Việt Cường do ảo giác ma túy đã nhét tỏi vào miệng một cô gái khiến cô này tử vong."
+    },
+    {
+        "input": "Việc nghệ sĩ sử dụng ma tuý gây ra tác động xấu như thế nào đến xã hội?",
+        "expected_output": "Việc nghệ sĩ sử dụng ma túy không chỉ hủy hoại sự nghiệp của chính họ mà còn gây hệ lụy nghiêm trọng đến nhận thức của giới trẻ."
+    }
 ]

@@ -1,0 +1,324 @@
+C:\Users\PC\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+C:\Users\PC\AppData\Local\Programs\Python\Python310\lib\site-packages\transformers\utils\hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+
+==================================================
+🚀 ĐANG CHUẨN BỊ ĐỀ THI CHO CONFIG A (KHÔNG HYDE)
+[Baseline] Generating answer for Q1: Việc trồng cây có chứa chất ma túy có bị cấm theo Luật PCMT 2021 không?
+Loaded 443 chunks into BM25 index.
+[Baseline] Generating answer for Q2: "Xét nghiệm chất ma túy trong cơ thể" là gì?
+[Baseline] Generating answer for Q3: Chuyên án VN10 là chuyên án về vấn đề gì?
+[Baseline] Generating answer for Q4: Lê Ánh Nhật (ca sĩ Miu Lê) bị cơ quan Công an TPHCM khởi tố về hành vi gì?
+
+==================================================
+🚀 ĐANG CHUẨN BỊ ĐỀ THI CHO CONFIG B (CÓ HYDE)
+[HyDE] Generating answer for Q1: Việc trồng cây có chứa chất ma túy có bị cấm theo Luật PCMT 2021 không?
+[HyDE] Generating answer for Q2: "Xét nghiệm chất ma túy trong cơ thể" là gì?
+[HyDE] Generating answer for Q3: Chuyên án VN10 là chuyên án về vấn đề gì?
+[HyDE] Generating answer for Q4: Lê Ánh Nhật (ca sĩ Miu Lê) bị cơ quan Công an TPHCM khởi tố về hành vi gì?
+
+==================================================
+⚖️ BẮT ĐẦU CHẤM ĐIỂM CONFIG A (BASELINE)...
+✨ You're running DeepEval's latest Answer Relevancy Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Faithfulness Metric! (using gpt-4o-mini, 
+strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Contextual Precision Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Contextual Recall Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🚀 DeepEval Evaluation Results                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ✅ test_case_0 (Passed 4 metrics)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ❌ test_case_1                                                             │
+│  ├──   Input:              "Xét nghiệm chất ma túy trong cơ thể" là gì?     │
+│  │     Actual Output:      "Xét nghiệm chất ma túy trong cơ thể" là một     │
+│  │                         quy trình được thực hiện nhằm xác định sự        │
+│  │                         hiện diện của các chất ma túy trong cơ thể       │
+│  │                         của một cá nhân. Theo quy định, xét nghiệm       │
+│  │                         này được thực hiện đối với những người thuộc     │
+│  │                         các trường hợp cụ thể, bao gồm:                  │
+│  │                                                                          │
+│  │                         1. Người bị phát hiện sử dụng trái phép chất     │
+│  │                         ma túy.                                          │
+│  │                         2. Người mà cơ quan có thẩm quyền có căn cứ      │
+│  │                         cho rằng có hành vi sử dụng trái phép chất ma    │
+│  │                         túy.                                             │
+│  │                         3. Người sử dụng trái phép chất ma túy đang      │
+│  │                         trong thời hạn quản lý.                          │
+│  │                         4. Người đang trong thời gian bị áp dụng biện    │
+│  │                         pháp xử lý hành chính giáo dục do có hành vi     │
+│  │                         sử dụng trái phép chất ma túy, đang cai          │
+│  │                         nghiện ma túy, hoặc đang điều trị nghiện các     │
+│  │                         chất dạng thuốc phiện bằng thuốc thay thế        │
+│  │                         [8.-Luat-Phong-chong-ma-tuy-nam-2021.md,         │
+│  │                         2021].                                           │
+│  │                                                                          │
+│  │                         Mục đích của việc xét nghiệm này là để quản      │
+│  │                         lý và ngăn chặn hành vi sử dụng trái phép        │
+│  │                         chất ma túy, đồng thời hỗ trợ trong việc điều    │
+│  │                         trị và cai nghiện cho những người có liên        │
+│  │                         quan [8.-Luat-Phong-chong-ma-tuy-nam-2021.md,    │
+│  │                         2021].                                           │
+│  │     Expected Output:    Là việc thực hiện các kỹ thuật chuyên môn        │
+│  │                         nhằm xác định chất ma túy trong cơ thể thông     │
+│  │                         qua mẫu nước tiểu, máu hoặc các mẫu vật khác.    │
+│  └── Metrics                                                                │
+│       Status │ Metric             │ Score │ Threshold │ Reason              │
+│      ────────┼────────────────────┼───────┼───────────┼───────────────────  │
+│        PASS  │ Answer Relevancy   │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ response            │
+│              │                    │       │           │ directly...         │
+│        PASS  │ Faithfulness       │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because there are   │
+│              │                    │       │           │ no contradi...      │
+│        FAIL  │ Contextual         │ 0.33  │ 0.50      │ The score is 0.33   │
+│              │ Precision          │       │           │ because while the   │
+│              │                    │       │           │ third node          │
+│              │                    │       │           │ provides a clear    │
+│              │                    │       │           │ definition of       │
+│              │                    │       │           │ drug testing in     │
+│              │                    │       │           │ the body, the       │
+│              │                    │       │           │ first, second,      │
+│              │                    │       │           │ fourth, and fifth   │
+│              │                    │       │           │ nodes are ranked    │
+│              │                    │       │           │ higher despite      │
+│              │                    │       │           │ being irrelevant.   │
+│              │                    │       │           │ Specifically, the   │
+│              │                    │       │           │ first node          │
+│              │                    │       │           │ discusses           │
+│              │                    │       │           │ authority and       │
+│              │                    │       │           │ procedures          │
+│              │                    │       │           │ without defining    │
+│              │                    │       │           │ drug testing, the   │
+│              │                    │       │           │ second focuses on   │
+│              │                    │       │           │ management of       │
+│              │                    │       │           │ drug users, the     │
+│              │                    │       │           │ fourth mentions     │
+│              │                    │       │           │ drug testing        │
+│              │                    │       │           │ without             │
+│              │                    │       │           │ definition, and     │
+│              │                    │       │           │ the fifth talks     │
+│              │                    │       │           │ about               │
+│              │                    │       │           │ responsibilities    │
+│              │                    │       │           │ related to drug     │
+│              │                    │       │           │ testing. This       │
+│              │                    │       │           │ misalignment in     │
+│              │                    │       │           │ ranking leads to    │
+│              │                    │       │           │ a lower score.      │
+│        PASS  │ Contextual Recall  │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ sentence            │
+│              │                    │       │           │ perfectl...         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ✅ test_case_2 (Passed 4 metrics)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ❌ test_case_3                                                             │
+│  ├──   Input:              Lê Ánh Nhật (ca sĩ Miu Lê) bị cơ quan Công an    │
+│  │                         TPHCM khởi tố về hành vi gì?                     │
+│  │     Actual Output:      Lê Ánh Nhật, còn được biết đến với nghệ danh     │
+│  │                         Miu Lê, đã bị Cơ quan Cảnh sát điều tra Công     │
+│  │                         an thành phố Hải Phòng khởi tố về hành vi "Tổ    │
+│  │                         chức sử dụng trái phép chất ma túy". Quyết       │
+│  │                         định khởi tố bị can và áp dụng biện pháp ngăn    │
+│  │                         chặn tạm giam đối với cô được thực hiện vào      │
+│  │                         ngày 16 tháng 5 năm 2026 .                       │
+│  │     Expected Output:    Ca sĩ Miu Lê bị khởi tố, bắt tạm giam để điều    │
+│  │                         tra về hành vi tổ chức sử dụng trái phép chất    │
+│  │                         ma túy.                                          │
+│  └── Metrics                                                                │
+│       Status │ Metric             │ Score │ Threshold │ Reason              │
+│      ────────┼────────────────────┼───────┼───────────┼───────────────────  │
+│        PASS  │ Answer Relevancy   │ 0.67  │ 0.50      │ The score is 0.67   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ output included     │
+│              │                    │       │           │ i...                │
+│        FAIL  │ Faithfulness       │ 0.33  │ 0.50      │ The score is 0.33   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ actual output       │
+│              │                    │       │           │ incorrectly         │
+│              │                    │       │           │ states that Miu     │
+│              │                    │       │           │ Lê was prosecuted   │
+│              │                    │       │           │ when he was only    │
+│              │                    │       │           │ charged, and it     │
+│              │                    │       │           │ misattributes the   │
+│              │                    │       │           │ date of May 16,     │
+│              │                    │       │           │ 2026, to a          │
+│              │                    │       │           │ prosecution         │
+│              │                    │       │           │ decision instead    │
+│              │                    │       │           │ of the detention    │
+│              │                    │       │           │ of others.          │
+│        PASS  │ Contextual         │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │ Precision          │       │           │ because all         │
+│              │                    │       │           │ relevant nodes      │
+│              │                    │       │           │ ar...               │
+│        PASS  │ Contextual Recall  │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ sentence            │
+│              │                    │       │           │ directly...         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Aggregate Metrics                                                           │
+│                                                                             │
+│  Metric                      │ Average Score      │ Pass Rate     │ Total   │
+│ ─────────────────────────────┼────────────────────┼───────────────┼──────── │
+│  Answer Relevancy            │ 0.92               │ 100.00%       │ 4       │
+│  Faithfulness                │ 0.83               │ 75.00%        │ 4       │
+│  Contextual Precision        │ 0.83               │ 75.00%        │ 4       │
+│  Contextual Recall           │ 1.00               │ 100.00%       │ 4       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+⚠ WARNING: No hyperparameters logged.
+» Log hyperparameters to attribute prompts and models to your test runs.
+
+===============================================================================
+=
+
+
+✓ Evaluation completed 🎉! (time taken: 16.61s | token cost: 0.00951105 USD)
+» Test Results (4 total tests):
+   » Pass Rate: 50.0% | Passed: 2 | Failed: 2
+
+ ==============================================================================
+== 
+
+» Want to share evals with your team, or a place for your test cases to live? 
+❤️ 🏡
+  » Run 'deepeval view' to analyze and save testing results on Confident AI.
+
+
+
+==================================================
+⚖️ BẮT ĐẦU CHẤM ĐIỂM CONFIG B (HYDE)...
+✨ You're running DeepEval's latest Answer Relevancy Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Faithfulness Metric! (using gpt-4o-mini, 
+strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Contextual Precision Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+✨ You're running DeepEval's latest Contextual Recall Metric! (using 
+gpt-4o-mini, strict=False, async_mode=True)...
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🚀 DeepEval Evaluation Results                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ✅ test_case_0 (Passed 4 metrics)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ❌ test_case_1                                                             │
+│  ├──   Input:              "Xét nghiệm chất ma túy trong cơ thể" là gì?     │
+│  │     Actual Output:      "Xét nghiệm chất ma túy trong cơ thể" là việc    │
+│  │                         thực hiện các kỹ thuật chuyên môn nhằm xác       │
+│  │                         định chất ma túy trong cơ thể thông qua mẫu      │
+│  │                         nước tiểu, mẫu máu hoặc các mẫu vật khác của     │
+│  │                         cơ thể người                                     │
+│  │                         [8.-Luat-Phong-chong-ma-tuy-nam-2021.md,         │
+│  │                         2021].                                           │
+│  │     Expected Output:    Là việc thực hiện các kỹ thuật chuyên môn        │
+│  │                         nhằm xác định chất ma túy trong cơ thể thông     │
+│  │                         qua mẫu nước tiểu, máu hoặc các mẫu vật khác.    │
+│  └── Metrics                                                                │
+│       Status │ Metric             │ Score │ Threshold │ Reason              │
+│      ────────┼────────────────────┼───────┼───────────┼───────────────────  │
+│        PASS  │ Answer Relevancy   │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ response            │
+│              │                    │       │           │ directly...         │
+│        PASS  │ Faithfulness       │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because there are   │
+│              │                    │       │           │ no contradi...      │
+│        FAIL  │ Contextual         │ 0.33  │ 0.50      │ The score is 0.33   │
+│              │ Precision          │       │           │ because while the   │
+│              │                    │       │           │ third node          │
+│              │                    │       │           │ provides a clear    │
+│              │                    │       │           │ definition of       │
+│              │                    │       │           │ drug testing, the   │
+│              │                    │       │           │ first, second,      │
+│              │                    │       │           │ fourth, and fifth   │
+│              │                    │       │           │ nodes are ranked    │
+│              │                    │       │           │ higher despite      │
+│              │                    │       │           │ being irrelevant    │
+│              │                    │       │           │ to the query.       │
+│              │                    │       │           │ Specifically, the   │
+│              │                    │       │           │ first node          │
+│              │                    │       │           │ discusses           │
+│              │                    │       │           │ responsibilities    │
+│              │                    │       │           │ of the Ministry     │
+│              │                    │       │           │ of Public           │
+│              │                    │       │           │ Security, the       │
+│              │                    │       │           │ second outlines     │
+│              │                    │       │           │ legal activities,   │
+│              │                    │       │           │ the fourth covers   │
+│              │                    │       │           │ regulations, and    │
+│              │                    │       │           │ the fifth           │
+│              │                    │       │           │ addresses drug      │
+│              │                    │       │           │ control measures,   │
+│              │                    │       │           │ none of which       │
+│              │                    │       │           │ define drug         │
+│              │                    │       │           │ testing. This       │
+│              │                    │       │           │ misalignment in     │
+│              │                    │       │           │ ranking leads to    │
+│              │                    │       │           │ a lower score.      │
+│        PASS  │ Contextual Recall  │ 1.00  │ 0.50      │ The score is 1.00   │
+│              │                    │       │           │ because the         │
+│              │                    │       │           │ sentence            │
+│              │                    │       │           │ directly...         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ✅ test_case_2 (Passed 4 metrics)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ✅ test_case_3 (Passed 4 metrics)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Aggregate Metrics                                                           │
+│                                                                             │
+│  Metric                      │ Average Score      │ Pass Rate     │ Total   │
+│ ─────────────────────────────┼────────────────────┼───────────────┼──────── │
+│  Answer Relevancy            │ 0.92               │ 100.00%       │ 4       │
+│  Faithfulness                │ 0.94               │ 100.00%       │ 4       │
+│  Contextual Precision        │ 0.81               │ 75.00%        │ 4       │
+│  Contextual Recall           │ 1.00               │ 100.00%       │ 4       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+⚠ WARNING: No hyperparameters logged.
+» Log hyperparameters to attribute prompts and models to your test runs.
+
+===============================================================================
+=
+
+
+✓ Evaluation completed 🎉! (time taken: 14.23s | token cost: 0.00887955 USD)
+» Test Results (4 total tests):
+   » Pass Rate: 75.0% | Passed: 3 | Failed: 1
+
+ ==============================================================================
+== 
+
+» Want to share evals with your team, or a place for your test cases to live? 
+❤️ 🏡
+  » Run 'deepeval view' to analyze and save testing results on Confident AI.
+
+
+
+✅ KIỂM THỬ A/B HOÀN TẤT!

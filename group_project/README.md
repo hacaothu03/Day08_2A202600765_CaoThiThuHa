@@ -1,204 +1,69 @@
-# Bài Tập Nhóm — Search Engine / RAG Chatbot
+# Báo Cáo Kiến Trúc Nhóm - RAG Chatbot
 
-## Mục Tiêu
+**Thông tin Nhóm:** Nhóm C6 - Phòng 402
 
-Sau khi hoàn thành bài cá nhân, nhóm ngồi lại để xây dựng **1 trong 2 sản phẩm**:
-
----
-
-## Yêu cầu 1:  Sản phẩm nhóm RAG Chatbot
-
-Xây dựng chatbot trả lời câu hỏi về pháp luật ma tuý và tin tức liên quan.
-
-**Yêu cầu:**
-- Giao diện chat (Streamlit / Gradio / Chainlit)
-- Trả lời có citation (dựa trên Task 10)
-- Hỗ trợ follow-up questions (conversation memory)
-- Hiển thị source documents đã dùng
-
-**Stack gợi ý:**
-```
-Chainlit/Streamlit → Retrieval (Task 9) → Generation (Task 10) → Display
-```
+## 👥 Phân Công Nhiệm Vụ
+| STT | Họ và Tên | MSSV | Vai trò / Nhiệm vụ chính trong Project |
+|:---:|:---|:---|:---|
+| 1 | Hà Trung Kiên | 2A202600709 | Xây dựng giao diện Chatbot Streamlit, quản lý trạng thái Conversation Memory |
+| 2 | Cao Thị Thu Hà | 2A202600765 | Thiết lập quy trình Evaluation (DeepEval), thu thập và dán nhãn Golden Dataset |
+| 3 | Nguyễn Lâm Phương Thảo | 2A202600873 | Cài đặt thuật toán HyDE, tinh chỉnh Prompt cho LLM Generation có trích dẫn |
+| 4 | Nguyễn Bình Huy | 2A202600689 | Quản lý Vector DB (ChromaDB), đấu nối và tối ưu hoá Hybrid Retrieval Pipeline |
 
 ---
 
-## Yêu cầu 2: RAG Evaluation Pipeline
+Dự án này là kết quả của phần Bài Tập Nhóm, triển khai **Option B: RAG Chatbot**. 
+Hệ thống kết nối trực tiếp với RAG pipeline từ bài cá nhân (Task 4 - Task 10) và được nâng cấp thêm các tính năng mở rộng để tối ưu hóa khả năng tìm kiếm và nâng cao trải nghiệm người dùng.
 
-Sử dụng **1 trong 3 framework** sau để evaluate pipeline RAG của nhóm:
+## 🌟 Tính Năng Nổi Bật
 
-### Framework lựa chọn
+1. **Giao diện Chatbot Streamlit (UI/UX chất lượng)**
+   - Mô phỏng giao diện ChatGPT quen thuộc.
+   - Hiển thị rành mạch các đoạn hội thoại giữa User và Assistant.
+   - Ẩn/Hiện thông tin trích dẫn chi tiết (Sources) bằng tính năng Expander rất gọn gàng.
 
-| Framework | Cài đặt | Đặc điểm |
-|-----------|---------|-----------|
-| [DeepEval](https://github.com/confident-ai/deepeval) | `pip install deepeval` | Nhiều metric built-in, dễ integrate với pytest |
-| [RAGAS](https://github.com/explodinggradients/ragas) | `pip install ragas` | Chuẩn industry cho RAG eval, 3 trục chính |
-| [TruLens](https://github.com/truera/trulens) | `pip install trulens` | Dashboard UI, feedback functions mạnh |
+2. **Conversation Memory (Bộ nhớ đa lượt)**
+   - Hệ thống lưu trữ lịch sử chat thông qua `st.session_state`.
+   - Lịch sử (6 tin nhắn gần nhất) sẽ được gài vào Prompt của OpenAI để cung cấp bối cảnh. Nhờ đó người dùng có thể hỏi các câu hỏi follow-up (như: "Hãy tóm tắt lại câu trả lời trên") mà bot vẫn hiểu được.
 
-### Yêu cầu Evaluation
+3. **Thuật toán HyDE (Hypothetical Document Embeddings)**
+   - Thay vì dùng câu hỏi của người dùng để đi tìm kiếm văn bản (Vector Search) một cách thô sơ, hệ thống tích hợp module `hyde.py`.
+   - **Cách hoạt động:** Khi có câu hỏi, hệ thống dùng GPT-4o-mini để sinh ra một "câu trả lời giả định" (chứa nhiều thuật ngữ và từ khóa chuyên môn). Sau đó dùng câu trả lời giả định này đi query vào ChromaDB. Kết quả giúp RAG vượt qua giới hạn của tìm kiếm từ vựng thông thường, tăng độ bao phủ của dữ liệu tìm được.
 
-1. **Tạo Golden Dataset** — tối thiểu 15 cặp Q&A (question, expected_answer, expected_context)
-2. **Chạy evaluation** trên toàn bộ golden dataset với các metrics sau:
-   - **Faithfulness** — câu trả lời có bám đúng context không?
-   - **Answer Relevance** — câu trả lời có đúng câu hỏi không?
-   - **Context Recall** — retriever có lấy đủ evidence không?
-   - **Context Precision** — trong context lấy về, bao nhiêu % thực sự hữu ích?
-3. **So sánh A/B** — chạy eval trên ít nhất 2 config khác nhau (ví dụ: có reranking vs không reranking, hoặc hybrid vs dense-only)
-4. **Báo cáo** — bảng điểm + phân tích worst performers + đề xuất cải tiến
+4. **Trích dẫn minh bạch (Citations)**
+   - Prompt chuẩn hóa buộc LLM phải đặt trích dẫn `[Tên văn bản/Bài báo]` sau mỗi luận điểm.
+   - Giao diện cung cấp phần mở rộng bên dưới mỗi câu trả lời để người dùng có thể đọc trực tiếp các đoạn nội dung gốc (kèm điểm số Rank Score) chứng minh cho câu trả lời của Bot.
 
-### Code mẫu — DeepEval
+## 🛠 Cách Cài Đặt & Chạy
 
-```python
-from deepeval import evaluate
-from deepeval.metrics import (
-    FaithfulnessMetric,
-    AnswerRelevancyMetric,
-    ContextualRecallMetric,
-    ContextualPrecisionMetric,
-)
-from deepeval.test_case import LLMTestCase
-
-# Tạo test cases từ golden dataset
-test_cases = []
-for item in golden_dataset:
-    result = rag_pipeline.generate_with_citation(item["question"])
-    test_case = LLMTestCase(
-        input=item["question"],
-        actual_output=result["answer"],
-        expected_output=item["expected_answer"],
-        retrieval_context=[c["content"] for c in result["sources"]],
-    )
-    test_cases.append(test_case)
-
-# Chạy evaluation
-metrics = [
-    FaithfulnessMetric(threshold=0.7),
-    AnswerRelevancyMetric(threshold=0.7),
-    ContextualRecallMetric(threshold=0.7),
-    ContextualPrecisionMetric(threshold=0.7),
-]
-
-results = evaluate(test_cases, metrics)
-```
-
-### Code mẫu — RAGAS
-
-```python
-from ragas import evaluate
-from ragas.metrics import (
-    faithfulness,
-    answer_relevancy,
-    context_recall,
-    context_precision,
-)
-from datasets import Dataset
-
-# Chuẩn bị data
-eval_data = {
-    "question": [],
-    "answer": [],
-    "contexts": [],
-    "ground_truth": [],
-}
-
-for item in golden_dataset:
-    result = rag_pipeline.generate_with_citation(item["question"])
-    eval_data["question"].append(item["question"])
-    eval_data["answer"].append(result["answer"])
-    eval_data["contexts"].append([c["content"] for c in result["sources"]])
-    eval_data["ground_truth"].append(item["expected_answer"])
-
-dataset = Dataset.from_dict(eval_data)
-
-# Chạy evaluation
-result = evaluate(
-    dataset,
-    metrics=[faithfulness, answer_relevancy, context_recall, context_precision],
-)
-print(result.to_pandas())
-```
-
-### Code mẫu — TruLens
-
-```python
-from trulens.apps.custom import TruCustomApp, instrument
-from trulens.core import Feedback
-from trulens.providers.openai import OpenAI as TruOpenAI
-
-provider = TruOpenAI()
-
-# Define feedback functions
-f_faithfulness = Feedback(provider.groundedness_measure_with_cot_reasons).on_output()
-f_relevance = Feedback(provider.relevance).on_input_output()
-f_context_relevance = Feedback(provider.context_relevance).on_input()
-
-# Wrap RAG pipeline
-tru_rag = TruCustomApp(
-    rag_pipeline,
-    app_name="DrugLaw_RAG",
-    feedbacks=[f_faithfulness, f_relevance, f_context_relevance],
-)
-
-# Run evaluation
-with tru_rag as recording:
-    for item in golden_dataset:
-        rag_pipeline.generate_with_citation(item["question"])
-
-# View dashboard
-from trulens.dashboard import run_dashboard
-run_dashboard()
-```
-
-### Deliverable Evaluation
-
-- [ ] File `group_project/evaluation/golden_dataset.json` — 15+ cặp Q&A
-- [ ] File `group_project/evaluation/eval_pipeline.py` — script chạy evaluation
-- [ ] File `group_project/evaluation/results.md` — bảng điểm + phân tích
-- [ ] So sánh A/B ít nhất 2 configs
-
----
-
-## Yêu Cầu Chung
-
-1. **Tích hợp pipeline** từ bài cá nhân của các thành viên
-2. **Demo hoạt động được** trong buổi trình bày (chạy local hoặc deploy)
-3. **Evaluation pipeline** chạy được và có báo cáo kết quả
-4. **Code push lên repository** chung của nhóm
-5. **README** mô tả kiến trúc và phân công (điền bên dưới)
-
----
-
-## Kiến Trúc Hệ Thống
-
-```
-[Vẽ diagram kiến trúc ở đây]
-```
-
----
-
-## Phân Công Công Việc
-
-| Thành viên | MSSV | Nhiệm vụ | Trạng thái |
-|-----------|------|----------|------------|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-
----
-
-## Hướng Dẫn Chạy
-
+1. Hãy chắc chắn bạn đã điền `OPENAI_API_KEY` vào file `.env`.
+2. Đảm bảo bạn đã chạy `task4_chunking_indexing.py` ít nhất một lần để nạp dữ liệu vào ChromaDB.
+3. Khởi chạy giao diện Chatbot bằng lệnh:
 ```bash
-# Cài đặt dependencies
-pip install -r requirements.txt
-
-# Chạy app
-streamlit run app.py
-# hoặc
-chainlit run app.py
+streamlit run group_project/app.py
 ```
 
----
+## 🧠 Kiến Trúc Hệ Thống (Flow)
 
-## Lưu ý: Hãy giữ lại repo này nếu như bạn học track 3 giai đoạn 2, chúng ta sẽ phát triển tiếp dự án lên knowledge graph để khắc phục các câu hỏi hóc búa khi có các câu hỏi khó.
+```text
+Người dùng nhập query
+       │
+       ▼
+[Kiểm tra bật HyDE?]
+  ├─ Bật: GPT-4o sinh ra "Tài liệu giả định" (HyDE doc) 
+  └─ Tắt: Giữ nguyên query
+       │
+       ▼
+Retrieval Pipeline (task9)
+(ChromaDB Semantic + BM25 Lexical) 
+       │
+       ▼
+Gộp kết quả bằng thuật toán RRF (Reciprocal Rank Fusion)
+       │
+       ▼
+Generation (task10)
+Đưa vào GPT-4o-mini kèm theo [Lịch sử hội thoại] và [Các chunks đã tìm được]
+       │
+       ▼
+In kết quả ra màn hình Giao diện Streamlit (Có trích dẫn nguồn)
+```
